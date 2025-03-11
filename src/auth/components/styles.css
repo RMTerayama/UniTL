@@ -1,0 +1,31 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 70vh;
+    height: 60vh;
+    padding-right: 5.5rem;
+    padding-left: 5.5rem;
+    border-right: 0.1em solid #cccccc;
+    border-bottom: 0.1em solid #cccccc;
+    /*d_horizontal d_vertical borrao cor*/
+    box-shadow: 1px 5px 5px rgba(80, 80, 80, 0.2);
+}
+
+.botao {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.password-toggle {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.input-group {
+    position: relative;
+}

@@ -1,0 +1,11 @@
+.banner {
+    background-color: #050A24;
+}
+
+.div-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    padding-left: 0;
+}
