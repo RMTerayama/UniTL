@@ -2,7 +2,6 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
-import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
@@ -11,17 +10,51 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import styles from "./styles.component.css";
+import Menu from '@mui/material/Menu'; // Componente Menu
+import MenuItem from '@mui/material/MenuItem'; // Itens do Menu
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import { hover } from '@testing-library/user-event/dist/hover';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import BackupTableOutlinedIcon from '@mui/icons-material/BackupTableOutlined';
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
 const drawerWidth = 240;
+const itemsNav1 = [{ text: "Início", icon: <HomeOutlinedIcon /> }, { text: "Mensagem", icon: <EmailOutlinedIcon /> }];
+const itemsNav2 = [
+  { text: "Sistemas", icon: <BackupTableOutlinedIcon /> },
+  { text: "Suporte", icon: <HelpOutlineOutlinedIcon /> },
+  { text: "Ajustes", icon: <SettingsOutlinedIcon /> },
+];
+
+// Links para os sistemas
+const sistemasMenuItems = [
+  { text: "Sistema 1", link: "#" },
+  { text: "Sistema 2", link: "#" },
+  { text: "Sistema 3", link: "#" },
+];
 
 export default function Navbar() {
+  const [anchorEl, setAnchorEl] = React.useState(null); // Estado para controlar o menu
+  const open = Boolean(anchorEl); // Verifica se o menu está aberto
+
+  // Função para abrir o menu
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  // Função para fechar o menu
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        minHeight: '100vh', // Garante que o gradiente cubra toda a altura da tela
+        background: 'linear-gradient( #050A24, #0E1C58)', // Gradiente de #050A24 para #0E1C58
+      }}
+    >
       <CssBaseline />
       <Drawer
         sx={{
@@ -30,38 +63,132 @@ export default function Navbar() {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
-            backgroundColor: "#050A24",
-            color: "white",
+            backgroundColor: 'transparent', // Fundo transparente para o gradiente aparecer
+            color: 'white',
           },
         }}
         variant="permanent"
         anchor="left"
       >
-        <Box sx={{ display: "flex", justifyContent: "center", paddingTop: 2 }}>
-          <Typography sx={{ color: "white", fontWeight: "bold", textAlign: "center" }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', paddingTop: 2 }}>
+          <Typography sx={{ color: 'white', fontWeight: 'bold', textAlign: 'center' }}>
             <h1>UniTL</h1>
             <p>SISTEMA UNIFICADO</p>
           </Typography>
         </Box>
-        <Divider variant="middle" sx={{ borderBottomWidth: 2, borderColor: "white" }} />
+        <Divider variant="middle" sx={{ borderBottomWidth: 2, borderColor: 'white' }} />
         <List>
-          <ListItem>
-            <ListItemButton className='list-item' /* sx={{ borderRadius: "10px", display: 'flex', alignItems: "flex-start", "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.1)", transition: "background-color 0.3s" } }} */>
-              <ListItemIcon sx={{ minWidth: "40px" }}>
-                <HomeOutlinedIcon sx={{ color: "white", fontSize: 30 }}></HomeOutlinedIcon>
-              </ListItemIcon>
-              <ListItemText primary="Início" sx={{ paddingLeft: "0" }}></ListItemText>
-            </ListItemButton>
-          </ListItem>
+          {itemsNav1.map((item, index) => (
+            <ListItem key={index}>
+              <ListItemButton
+                sx={{
+                  borderRadius: '10px',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)', transition: 'background-color 0.3s' },
+                }}
+              >
+                <ListItemIcon sx={{ minWidth: '40px', color: 'white', fontSize: 30 }}>
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.text} sx={{ paddingLeft: '0' }} />
+              </ListItemButton>
+            </ListItem>
+          ))}
         </List>
-        <Divider />
+        <Divider variant="middle" sx={{ borderBottomWidth: 2, borderColor: 'white' }} />
         <List>
-
+          {itemsNav2.map((item, index) => (
+            <ListItem key={index}>
+              {item.text === "Sistemas" ? (
+                <>
+                  <ListItemButton
+                    onClick={handleClick} // Abre o menu ao clicar
+                    sx={{
+                      borderRadius: '10px',
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)', transition: 'background-color 0.3s' },
+                    }}
+                  >
+                    <ListItemIcon sx={{ minWidth: '40px', color: 'white', fontSize: 30 }}>
+                      {item.icon}
+                    </ListItemIcon>
+                    <ListItemText primary={item.text} sx={{ paddingLeft: '0' }} />
+                  </ListItemButton>
+                  <Menu
+                    anchorEl={anchorEl} // Elemento que abre o menu
+                    open={open} // Controla a visibilidade do menu
+                    onClose={handleClose} // Fecha o menu
+                    anchorOrigin={{
+                      vertical: 'top', // Posiciona o menu no topo do botão
+                      horizontal: 'right', // Posiciona o menu à direita do botão
+                    }}
+                    PaperProps={{
+                      style: {backgroundColor:"#d9d9d9"}
+                    }}
+                    transformOrigin={{
+                      vertical: 'top', // Alinha o menu com o topo do botão
+                      horizontal: 'left', // Alinha o menu com a esquerda do botão
+                    }}
+                    MenuListProps={{
+                      'aria-labelledby': 'sistemas-button', // Acessibilidade
+                    }}
+                    
+                  >
+                    {sistemasMenuItems.map((menuItem, idx) => (
+                      <MenuItem key={idx} onClick={handleClose}>
+                        <a href={menuItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
+                          {menuItem.text}
+                        </a>
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </>
+              ) : (
+                <ListItemButton
+                  sx={{
+                    borderRadius: '10px',
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)', transition: 'background-color 0.3s' },
+                  }}
+                >
+                  <ListItemIcon sx={{ minWidth: '40px', color: 'white', fontSize: 30 }}>
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText primary={item.text} sx={{ paddingLeft: '0' }} />
+                </ListItemButton>
+              )}
+            </ListItem>
+          ))}
         </List>
+        <Divider variant="middle" sx={{ borderBottomWidth: 2, borderColor: 'white' }} />
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: 0,
+            width: '100%',
+            padding: 2,
+            backgroundColor: 'transparent', // Fundo transparente para o gradiente aparecer
+            display: 'flex',
+            justifyContent: 'center',
+            color: 'white',
+          }}
+        >
+          <Typography sx={{ fontSize: '14px', textAlign: 'center' }}>
+            © 2025 UniTL - Todos os direitos reservados
+          </Typography>
+        </Box>
       </Drawer>
+
       <Box
         component="main"
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+        sx={{
+          flexGrow: 1,
+          backgroundColor: 'white', // Fundo transparente para o gradiente aparecer
+          p: 3,
+        }}
       >
         <Toolbar />
         <Typography sx={{ marginBottom: 2 }}>
@@ -78,7 +205,7 @@ export default function Navbar() {
           consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
           sapien faucibus et molestie ac.
         </Typography>
-        <Typography sx={{ marginBottom: 2 }}>
+        <Typography sx={{ marginBottom: 2}}>
           Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
           eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
           neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
