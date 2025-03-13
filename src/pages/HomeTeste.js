@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Typography } from "@mui/material";
 
-export default function Home() {
+export default function HomeTeste() {
     const navigate = useNavigate(); // 🚀 Hook para navegação
 
     const handleLogout = () => {
