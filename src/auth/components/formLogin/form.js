@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Box, TextField, IconButton, InputAdornment, Button, Link, Typography } from "@mui/material";
+import { Box, TextField, IconButton, InputAdornment, Button, Link, Typography, useMediaQuery } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function Formulario() {
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const isMobile = useMediaQuery("(max-width: 768px)");
 
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
@@ -17,6 +18,7 @@ export default function Formulario() {
                 justifyContent: "center",
                 alignItems: "center",
                 padding: 4,
+                flexDirection: isMobile ? "column" : "row",
             }}
         >
             <Box sx={{ width: "100%", maxWidth: 450 }}>
@@ -47,8 +49,6 @@ export default function Formulario() {
                     />
                 </Box>
 
-               
-
                 <Button fullWidth variant="contained" color="primary" sx={{ mb: 2, fontWeight: "bold" }}>
                     Criar Conta
                 </Button>
@@ -56,7 +56,10 @@ export default function Formulario() {
                 <Button fullWidth variant="contained" color="success" sx={{ fontWeight: "bold", backgroundColor: "#E0EAFD", color: "#1976d2" }}>
                     Entrar
                 </Button>
+                
             </Box>
+            
         </Box>
+        
     );
 }
