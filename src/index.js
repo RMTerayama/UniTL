@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router } from 'react-router-dom'; // 🚀 Importando o Router
+import { BrowserRouter as Router } from 'react-router-dom'; // 🚀 Importamos o Router
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import Login from './auth/pages/login';
+import App from './App'; // 🚀 Agora o App gerencia as rotas
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Router> {/* 🚀 Agora o Login está dentro do Router */}
-      <Login />
+    <Router> {/* 🚀 O Router agora envolve o App */}
+      <App />
     </Router>
   </React.StrictMode>
 );
