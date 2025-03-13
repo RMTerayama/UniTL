@@ -4,7 +4,7 @@ import Login from "../auth/pages/login";
 import PrivateRoute from "../components/PrivateRoute"; // 🚀 Protege rotas privadas
 import Page from "../pages/page";
 import Home from "../pages/Home";
-
+import Chat from "../pages/Chat";
 // 🚀 Criando o roteador separado
 const router = createBrowserRouter([
     { path: "/login", element: <Login /> },
@@ -15,7 +15,9 @@ const router = createBrowserRouter([
                 path: "", element: <Page />,
                 children: [
                     { path: "home", element: <Home /> },
-                    { path: "chat", element: <chat/>}
+                    { path: "/chat", element: <Chat />}
+                    
+
                 ]
             },
             { path: "/homeTeste", element: <HomeTeste /> },
