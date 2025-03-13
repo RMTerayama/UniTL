@@ -1,19 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
+import HomeTeste from "../pages/HomeTeste";
 import Login from "../auth/pages/login";
-import Page from "../pages/page";
-import Home from "../components/Home";
+import PrivateRoute from "../components/PrivateRoute"; // 🚀 Protege rotas privadas
 
+// 🚀 Criando o roteador separado
 const router = createBrowserRouter([
-    {
-        path: 'login',
-        element: <Login />
-    },
-    {
-        path: '/',
-        element: <Page />,
-        children: [
-            { path: 'home', element: <Home /> }]
-    }
+  { path: "/", element: <Login /> },
+  {
+    element: <PrivateRoute />, // 🚀 Proteção de rotas
+    children: [{ path: "/homeTeste", element: <HomeTeste /> }],
+  },
 ]);
 
 export default router;

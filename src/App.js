@@ -1,11 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
-import AppRouter from './routes/Router';
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
     <div>
-      <AppRouter/>
+      <Outlet /> {/* 🚀 Exibe a página correspondente à rota ativa */}
     </div>
   );
 }
