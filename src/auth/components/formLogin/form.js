@@ -32,7 +32,7 @@ export default function Formulario() {
 
             // 🚀 Redireciona para a Home
             console.log("Login bem sucedido");
-            navigate("/homeTeste");
+            navigate("/");
         } catch (error) {
             console.error("Erro ao fazer login:", error);
             alert("Falha ao fazer login. Verifique suas credenciais.");

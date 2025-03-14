@@ -1,89 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+.image_user {
+  margin-right: 5px;
+}
+
+.info_user{
+  font-size: 10px;
+}
+
+.logo {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
 /* Estilos para o componente Navbar */
 .navbar {
-    display: flex;
-  }
-  
-  /* Estilos para o Drawer */
-  .drawer {
-    width: 240px;
-    flex-shrink: 0;
-  }
-  
-  .drawerPaper {
-    width: 240px;
-    box-sizing: border-box;
-    background-color: #050A24;
-    color: white;
-  }
-  
-  /* Estilos para o Box que contém o título */
-  .titleBox {
-    display: flex;
-    justify-content: center;
-    padding-top: 16px;
-  }
-  
-  .titleText {
-    color: white;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  /* Estilos para o Divider */
-  .divider {
-    border-bottom-width: 2px;
-    border-color: white;
-  }
-  
-  /* Estilos para o ListItemButton */
-  .listItemButton {
-    border-radius: 10px;
-    display: flex;
-    align-items: flex-start;
-  }
-  
-  .listItemButton:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    transition: background-color 0.3s;
-  }
-  
-  /* Estilos para o ListItemIcon */
-  .listItemIcon {
-    min-width: 40px;
-    color: white;
-    font-size: 30px;
-  }
-  
-  /* Estilos para o ListItemText */
-  .listItemText {
-    padding-left: 0;
-  }
-  
-  /* Estilos para o Box no final do Drawer */
-  .footerBox {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 16px;
-    background-color: #050A24;
-    display: flex;
-    justify-content: center;
-    color: white;
-  }
-  
-  .footerText {
-    font-size: 14px;
-    text-align: center;
-  }
-  
-  /* Estilos para o Box principal */
-  .mainBox {
-    flex-grow: 1;
-    background-color: transparent;
-    padding: 24px;
-  }
-  
-  /* Estilos para o Typography */
-  .typography {
-    margin-bottom: 16px;
-  }
+  display: flex;
+}
+
+/* Estilos para o Drawer */
+.drawer {
+  width: 240px;
+  flex-shrink: 0;
+}
+
+.drawerPaper {
+  width: 240px;
+  box-sizing: border-box;
+  background-color: #050a24;
+  color: white;
+}
+
+/* Estilos para o Box que contém o título */
+.titleBox {
+  display: flex;
+  justify-content: center;
+  padding-top: 16px;
+}
+
+.titleText {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Estilos para o Divider */
+.divider {
+  border-bottom-width: 2px;
+  border-color: white;
+}
+
+/* Estilos para o ListItemButton */
+.listItemButton {
+  border-radius: 10px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.listItemButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.3s;
+}
+
+/* Estilos para o ListItemIcon */
+.listItemIcon {
+  min-width: 40px;
+  color: white;
+  font-size: 30px;
+}
+
+/* Estilos para o ListItemText */
+.listItemText {
+  padding-left: 0;
+}
+
+/* Estilos para o Box no final do Drawer */
+.footerBox {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 16px;
+  background-color: #050a24;
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+.footerText {
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Estilos para o Box principal */
+.mainBox {
+  flex-grow: 1;
+  background-color: transparent;
+  padding: 24px;
+}
+
+/* Estilos para o Typography */
+.typography {
+  margin-bottom: 16px;
+}
