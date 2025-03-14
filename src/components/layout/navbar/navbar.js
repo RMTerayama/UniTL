@@ -22,6 +22,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'; // Hook para detectar o
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu'; // Ícone de menu para dispositivos móveis
 import { AppBar } from '@mui/material';
+import styles from "./navbar.module.css"
 
 const drawerWidth = 240;
 const itemsNav1 = [{ text: "Início", icon: <HomeOutlinedIcon /> }, { text: "Mensagem", icon: <EmailOutlinedIcon /> }];
@@ -61,15 +62,38 @@ export default function Navbar() {
     setMobileOpen(!mobileOpen);
   };
 
-  const logo = (<Typography sx={{ color: 'white', fontWeight: 'bold', textAlign: 'center' }}>
+  const logo = (<Typography className={styles.logo}>
     <h1>UniTL</h1>
     <p>SISTEMA UNIFICADO</p>
-  </Typography>);
+  </Typography>
+  );
+
+  const footer = (
+    <Box sx={{
+      position: 'absolute',
+      bottom: 0,
+      width: '100%',
+      padding: 2,
+      backgroundColor: 'transparent',
+      display: "flex",
+      flexDirection: "row",
+    }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          color: 'white',
+        }}
+      >
+        <span className={styles.image_user}><img href="" alt='perfil do usuário'></img></span>
+        <span className={styles.info_user}>Caveira <br />meia_noite@teconto.com</span>
+      </Box>
+    </Box>
+  );
 
   // Conteúdo do Drawer
   const drawerContent = (
     <>
-      
       <List>
         {itemsNav1.map((item, index) => (
           <ListItem key={index}>
@@ -155,27 +179,7 @@ export default function Navbar() {
           </ListItem>
         ))}
       </List>
-      <Box sx={{
-        position: 'absolute',
-        bottom: 0,
-        width: '100%',
-        padding: 2,
-        backgroundColor: 'transparent',
-        display: "flex",
-        flexDirection: "row",
-      }}>
-        <Divider variant="middle" sx={{ borderBottomWidth: 2, borderColor: 'white' }} />
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            color: 'white',
-          }}
-        >
-          <span><img href="" alt='perfil do usuário'></img></span>
-          <span>Nome do usuário <br />E-mail do usuário</span>
-        </Box>
-      </Box>
+      {footer}
     </>
   );
 
@@ -224,7 +228,7 @@ export default function Navbar() {
         }}
         anchor="left"
       >
-        {!isMobile && ( <Box sx={{paddingTop: 2}}>
+        {!isMobile && (<Box sx={{ paddingTop: 2 }}>
           {logo}
           <Divider variant="middle" sx={{ borderBottomWidth: 2, borderColor: 'white' }} />
         </Box>)}
