@@ -1,10 +1,11 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import HomeTeste from "../pages/HomeTeste";
 import Login from "../auth/pages/login";
 import PrivateRoute from "../components/PrivateRoute";
 import Page from "../pages/page";
 import Home from "../pages/Home";
 import Chat from "../pages/Chat";
+
 // 🚀 Criando o roteador separado
 
 const router = createBrowserRouter([
@@ -16,13 +17,15 @@ const router = createBrowserRouter([
         path: "",
         element: <Page />,
         children: [
+          { index: true, element: <Navigate to="/home" /> }, // Redireciona a raiz para /home
           { path: "home", element: <Home /> },
-          { path: "chat", element: <Chat /> }, // Certifique-se de que <Chat /> esteja importado corretamente
+          { path: "chat", element: <Chat /> },
         ],
       },
       { path: "/homeTeste", element: <HomeTeste /> },
     ],
   },
 ]);
+
 
 export default router;
