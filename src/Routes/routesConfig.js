@@ -4,6 +4,8 @@ import Login from "../auth/pages/login";
 import PrivateRoute from "../components/PrivateRoute";
 import Page from "../pages/page";
 import Home from "../pages/Home";
+import Chat from "../pages/Chat";
+// 🚀 Criando o roteador separado
 
 const router = createBrowserRouter([
   { path: "/login", element: <Login /> },
