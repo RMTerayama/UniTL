@@ -10,24 +10,29 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Menu from '@mui/material/Menu'; // Componente Menu
-import MenuItem from '@mui/material/MenuItem'; // Itens do Menu
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import BackupTableOutlinedIcon from '@mui/icons-material/BackupTableOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import { Outlet } from 'react-router-dom';
-import useMediaQuery from '@mui/material/useMediaQuery'; // Hook para detectar o tamanho da tela
+import useMediaQuery from '@mui/material/useMediaQuery';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu'; // Ícone de menu para dispositivos móveis
+import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar } from '@mui/material';
 import styles from "./navbar.module.css";
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined'; // Ícone de perfil
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import LogoutIcon from '@mui/icons-material/Logout';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+
 
 const drawerWidth = 240;
 const itemsNav1 = [{ text: "Início", icon: <HomeOutlinedIcon /> }, { text: "Mensagem", icon: <EmailOutlinedIcon /> }];
 const itemsNav2 = [
-  { text: "Sistemas", icon: <BackupTableOutlinedIcon /> },
+  { text: <>Sistemas <KeyboardArrowRightIcon/></>, icon: <BackupTableOutlinedIcon /> },
   { text: "Suporte", icon: <HelpOutlineOutlinedIcon /> },
   { text: "Ajustes", icon: <SettingsOutlinedIcon /> },
 ];
@@ -69,26 +74,98 @@ export default function Navbar() {
     </Typography>
   );
 
+  // Estado para controlar o menu do footer
+  const [footerAnchorEl, setFooterAnchorEl] = React.useState(null);
+  const isFooterMenuOpen = Boolean(footerAnchorEl);
+
+  // Função para abrir o menu do footer
+  const handleFooterMenuOpen = (event) => {
+    setFooterAnchorEl(event.currentTarget);
+  };
+
+  // Função para fechar o menu do footer
+  const handleFooterMenuClose = () => {
+    setFooterAnchorEl(null);
+  };
+
   const footer = (
-    <Box sx={{
-      position: "absolute",
-      bottom: 0,
-      width: '100%',
-      padding: 2,
-      backgroundColor: 'transparent',
-      display: "flex",
-      flexDirection: "row",
-    }}>
+    <Box
+      sx={{
+        position: "absolute",
+        bottom: 0,
+        width: '100%',
+        padding: 2,
+        backgroundColor: 'transparent',
+        display: "flex",
+        flexDirection: "row",
+      }}
+    >
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'center',
           color: 'white',
+          cursor: 'pointer', // Indica que o componente é clicável
+        }}
+        onClick={handleFooterMenuOpen} // Abre o menu ao clicar
+      >
+        <span className={styles.image_user}>
+          <img href="" alt="perfil do usuário" />
+        </span>
+        <span className={styles.info_user}>
+          Caveira <br />
+          meia_noite@teconto.com
+        </span>
+      </Box>
+
+      {/* Menu do footer */}
+      <Menu
+        PaperProps={{
+          style: { backgroundColor: "#d9d9d9" }
+        }}
+        anchorEl={footerAnchorEl}
+        open={isFooterMenuOpen}
+        onClose={handleFooterMenuClose}
+        anchorOrigin={{
+          vertical: 'top', // Posiciona o menu acima do elemento clicado
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'bottom', // Faz o menu "crescer" para cima
+          horizontal: 'right',
         }}
       >
-        <span className={styles.image_user}><img href="" alt='perfil do usuário'></img></span>
-        <span className={styles.info_user}>Caveira <br />meia_noite@teconto.com</span>
-      </Box>
+        <MenuItem onClick={handleFooterMenuClose}>
+          <ListItemIcon>
+            <PersonOutlineOutlinedIcon  /> {/* Ícone de perfil */}
+          </ListItemIcon>
+          <ListItemText>Perfil</ListItemText>
+        </MenuItem>
+
+        {/* Opção 2 */}
+        <MenuItem onClick={handleFooterMenuClose}>
+          <ListItemIcon>
+            <VerifiedUserIcon  /> {/* Ícone de configurações */}
+          </ListItemIcon>
+          <ListItemText>Políticas de privacidade</ListItemText>
+        </MenuItem>
+
+        {/* Opção 3 */}
+        <MenuItem onClick={handleFooterMenuClose}>
+          <ListItemIcon>
+          <SettingsOutlinedIcon />
+          </ListItemIcon>
+          <ListItemText>Ajustes</ListItemText>
+        </MenuItem>
+
+        <Divider variant="middle" sx={{ borderBottomWidth: 2, borderColor: 'black' }} />
+        <MenuItem onClick={handleFooterMenuClose}>
+          <ListItemIcon>
+          <LogoutIcon />
+          </ListItemIcon>
+          <ListItemText>Sair</ListItemText>
+        </MenuItem>
+      </Menu>
     </Box>
   );
 
@@ -135,22 +212,22 @@ export default function Navbar() {
                   <ListItemText primary={item.text} sx={{ paddingLeft: '0' }} />
                 </ListItemButton>
                 <Menu
-                  anchorEl={anchorEl} // Elemento que abre o menu
-                  open={open} // Controla a visibilidade do menu
-                  onClose={handleClose} // Fecha o menu
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
                   anchorOrigin={{
-                    vertical: 'top', // Posiciona o menu no topo do botão
-                    horizontal: 'right', // Posiciona o menu à direita do botão
+                    vertical: 'top',
+                    horizontal: 'right',
                   }}
                   PaperProps={{
                     style: { backgroundColor: "#d9d9d9" }
                   }}
                   transformOrigin={{
-                    vertical: 'top', // Alinha o menu com o topo do botão
-                    horizontal: 'left', // Alinha o menu com a esquerda do botão
+                    vertical: 'top',
+                    horizontal: 'left',
                   }}
                   MenuListProps={{
-                    'aria-labelledby': 'sistemas-button', // Acessibilidade
+                    'aria-labelledby': 'sistemas-button',
                   }}
                 >
                   {sistemasMenuItems.map((menuItem, idx) => (
@@ -180,7 +257,7 @@ export default function Navbar() {
           </ListItem>
         ))}
       </List>
-      {footer}
+      {footer} {/* Footer inserido aqui */}
     </>
   );
 
@@ -188,9 +265,9 @@ export default function Navbar() {
     <Box
       sx={{
         display: 'flex',
-        minHeight: !isMobile ? '100vh' : 'auto', // Garante que o gradiente cubra toda a altura da tela
+        minHeight: !isMobile ? '100vh' : 'auto',
         width: !isMobile ? drawerWidth : '10%',
-        background: 'linear-gradient(180deg, #050A24, #0E1C58)', // Gradiente de #050A24 para #0E1C58
+        background: 'linear-gradient(180deg, #050A24, #0E1C58)',
       }}
     >
       <CssBaseline />
@@ -214,16 +291,16 @@ export default function Navbar() {
         </AppBar>
       )}
       <Drawer
-        variant={isMobile ? 'temporary' : 'permanent'} // Alterna entre temporário e permanente
-        open={isMobile ? mobileOpen : true} // Controla a visibilidade do drawer em dispositivos móveis
-        onClose={handleDrawerToggle} // Fecha o drawer em dispositivos móveis
+        variant={isMobile ? 'temporary' : 'permanent'}
+        open={isMobile ? mobileOpen : true}
+        onClose={handleDrawerToggle}
         sx={{
           width: drawerWidth,
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
-            background: 'linear-gradient(180deg, #050A24, #0E1C58)', // Fundo transparente para o gradiente aparecer
+            background: 'linear-gradient(180deg, #050A24, #0E1C58)',
             color: 'white',
           },
         }}
