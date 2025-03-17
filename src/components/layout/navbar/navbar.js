@@ -32,7 +32,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 const drawerWidth = 240;
 const itemsNav1 = [{ text: "Início", icon: <HomeOutlinedIcon /> }, { text: "Mensagem", icon: <EmailOutlinedIcon /> }];
 const itemsNav2 = [
-  { text: <>Sistemas <KeyboardArrowRightIcon/></>, icon: <BackupTableOutlinedIcon /> },
+  { text: "Sistemas", icon: <BackupTableOutlinedIcon /> },
   { text: "Suporte", icon: <HelpOutlineOutlinedIcon /> },
   { text: "Ajustes", icon: <SettingsOutlinedIcon /> },
 ];
@@ -69,7 +69,7 @@ export default function Navbar() {
 
   const logo = (
     <Typography className={styles.logo}>
-      <h1>UniTL</h1>
+      <h1 style={{fontStyle: "italic", fontWeight: 800}}>UniTL</h1>
       <p>SISTEMA UNIFICADO</p>
     </Typography>
   );
@@ -137,7 +137,7 @@ export default function Navbar() {
       >
         <MenuItem onClick={handleFooterMenuClose}>
           <ListItemIcon>
-            <PersonOutlineOutlinedIcon  /> {/* Ícone de perfil */}
+            <PersonOutlineOutlinedIcon /> {/* Ícone de perfil */}
           </ListItemIcon>
           <ListItemText>Perfil</ListItemText>
         </MenuItem>
@@ -145,7 +145,7 @@ export default function Navbar() {
         {/* Opção 2 */}
         <MenuItem onClick={handleFooterMenuClose}>
           <ListItemIcon>
-            <VerifiedUserIcon  /> {/* Ícone de configurações */}
+            <VerifiedUserIcon /> {/* Ícone de configurações */}
           </ListItemIcon>
           <ListItemText>Políticas de privacidade</ListItemText>
         </MenuItem>
@@ -153,7 +153,7 @@ export default function Navbar() {
         {/* Opção 3 */}
         <MenuItem onClick={handleFooterMenuClose}>
           <ListItemIcon>
-          <SettingsOutlinedIcon />
+            <SettingsOutlinedIcon />
           </ListItemIcon>
           <ListItemText>Ajustes</ListItemText>
         </MenuItem>
@@ -161,7 +161,7 @@ export default function Navbar() {
         <Divider variant="middle" sx={{ borderBottomWidth: 2, borderColor: 'black' }} />
         <MenuItem onClick={handleFooterMenuClose}>
           <ListItemIcon>
-          <LogoutIcon />
+            <LogoutIcon />
           </ListItemIcon>
           <ListItemText>Sair</ListItemText>
         </MenuItem>
@@ -209,7 +209,9 @@ export default function Navbar() {
                   <ListItemIcon sx={{ minWidth: '40px', color: 'white', fontSize: 30 }}>
                     {item.icon}
                   </ListItemIcon>
-                  <ListItemText primary={item.text} sx={{ paddingLeft: '0' }} />
+                  <ListItemText sx={{ paddingLeft: '0' }}>
+                    <>Sistemas <KeyboardArrowRightIcon /></>
+                  </ListItemText>
                 </ListItemButton>
                 <Menu
                   anchorEl={anchorEl}
