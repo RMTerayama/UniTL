@@ -17,8 +17,8 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import BackupTableOutlinedIcon from '@mui/icons-material/BackupTableOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import { Outlet } from 'react-router-dom';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import useMediaQuery from '@mui/material/useMediaQuery'; // Hook para detectar o tamanho da tela
+
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar } from '@mui/material';
@@ -312,9 +312,6 @@ export default function Navbar() {
         </Box>)}
         {drawerContent}
       </Drawer>
-      <Box component="main" sx={{ marginTop: isMobile ? '80px' : 0, backgroundColor: 'white'}}>
-        <Outlet />
-      </Box>
     </Box>
   );
 }
