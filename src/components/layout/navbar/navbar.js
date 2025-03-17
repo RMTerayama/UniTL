@@ -69,7 +69,7 @@ export default function Navbar() {
 
   const logo = (
     <Typography className={styles.logo}>
-      <h1>UniTL</h1>
+      <h1 style={{fontStyle: "italic", fontWeight: 800}}>UniTL</h1>
       <p>SISTEMA UNIFICADO</p>
     </Typography>
   );
