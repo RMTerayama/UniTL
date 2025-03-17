@@ -28,9 +28,11 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import LogoutIcon from '@mui/icons-material/Logout';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
+import { useNavigate } from 'react-router-dom';
+
 
 const drawerWidth = 240;
-const itemsNav1 = [{ text: "Início", icon: <HomeOutlinedIcon /> }, { text: "Mensagem", icon: <EmailOutlinedIcon /> }];
+const itemsNav1 = [{ text: "Início", icon: <HomeOutlinedIcon />, route: "/home" }, { text: "Mensagem", icon: <EmailOutlinedIcon />, route: "/chat" }];
 const itemsNav2 = [
   { text: "Sistemas", icon: <BackupTableOutlinedIcon /> },
   { text: "Suporte", icon: <HelpOutlineOutlinedIcon /> },
@@ -48,6 +50,8 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null); // Estado para controlar o menu
   const [mobileOpen, setMobileOpen] = React.useState(false); // Estado para controlar o drawer em dispositivos móveis
   const open = Boolean(anchorEl); // Verifica se o menu está aberto
+
+  const navigate = useNavigate();
 
   // Verifica se a tela é pequena (dispositivos móveis)
   const isMobile = useMediaQuery('(max-width:600px)');
@@ -176,6 +180,7 @@ export default function Navbar() {
         {itemsNav1.map((item, index) => (
           <ListItem key={index}>
             <ListItemButton
+              onClick={() => navigate(item.route)}
               sx={{
                 borderRadius: '10px',
                 display: 'flex',
