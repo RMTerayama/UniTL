@@ -28,7 +28,7 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import LogoutIcon from '@mui/icons-material/Logout';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const drawerWidth = 240;
@@ -91,6 +91,11 @@ export default function Navbar() {
   const handleFooterMenuClose = () => {
     setFooterAnchorEl(null);
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // 🚀 Remove o JWT do armazenamento
+    navigate("/login"); // 🚀 Redireciona para a tela de login
+};
 
   const footer = (
     <Box
@@ -163,7 +168,7 @@ export default function Navbar() {
         </MenuItem>
 
         <Divider variant="middle" sx={{ borderBottomWidth: 2, borderColor: 'black' }} />
-        <MenuItem onClick={handleFooterMenuClose}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <LogoutIcon />
           </ListItemIcon>
@@ -239,9 +244,9 @@ export default function Navbar() {
                 >
                   {sistemasMenuItems.map((menuItem, idx) => (
                     <MenuItem key={idx} onClick={handleClose}>
-                      <a href={menuItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
+                      <Link to={menuItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
                         {menuItem.text}
-                      </a>
+                      </Link>
                     </MenuItem>
                   ))}
                 </Menu>
