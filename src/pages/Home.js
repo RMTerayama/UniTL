@@ -1,25 +1,15 @@
 import React from "react";
-import { Box, Typography, Button, Grid, Paper, useMediaQuery } from "@mui/material";
+import { Box, Typography, Button, Grid, Paper } from "@mui/material";
 import heroImage from "../assets/hero-image-4.webp";
 
-const drawerWidth = 240; // Largura do Drawer no desktop
-
 export default function Home() {
-  // Detecta se é mobile (<= 600px)
-  const isMobile = useMediaQuery("(max-width:600px)");
-
   return (
     <Box
       sx={{
-        position: "absolute",
-        top: 0,
-        left: isMobile ? 0 : `${drawerWidth}px`,
-        width: isMobile ? "100%" : `calc(100% - ${drawerWidth}px)`,
+        width: "100%",
         minHeight: "100vh",
-        zIndex: 1,
-        p: { xs: 2, md: 5 },
         backgroundColor: "#fff",
-        overflowY: "auto",
+        p: { xs: 2, md: 5 },
       }}
     >
       {/* Título */}
@@ -30,12 +20,12 @@ export default function Home() {
       {/* Seção: Acesso Rápido */}
       <Box sx={{ mb: 4 }}>
         <Typography variant="h6" fontWeight="600">
-          Acesso Rapido
+          Acesso Rápido
         </Typography>
         <Box sx={{ borderBottom: "2px solid #ccc", width: "100px", my: 1 }} />
       </Box>
 
-      {/* Grid de Botões: 2 colunas no desktop, 1 coluna no mobile */}
+      {/* Grid de Botões */}
       <Grid container spacing={4} sx={{ mb: 6 }}>
         <Grid item xs={12} sm={6} md={4}>
           <Button
@@ -111,7 +101,7 @@ export default function Home() {
         <Box sx={{ borderBottom: "2px solid #ccc", width: "100px", my: 1 }} />
       </Box>
 
-      {/* Card de Notícias - alinhado com o "Notícias" e ocupando 80% da largura em desktop */}
+      {/* Card de Notícias */}
       <Paper
         sx={{
           display: "flex",
@@ -140,10 +130,7 @@ export default function Home() {
             LGPD: o que você precisa saber para se adequar
           </Typography>
           <Typography variant="body2" sx={{ mt: 1 }}>
-            Casos de vazamento de dados já não são mais novidade. Para cuidar
-            da privacidade dos usuários, governos, empresas e cidadãos como um
-            todo se unem para criar soluções que evitem novos ataques e
-            garantam a proteção dos dados...
+          Casos de vazamento de dados já não são mais novidade. E para cuidar da privacidade dos inúmeros usuários pela internet afora; governo, empresas e cidadãos como um todo se uniram para criar soluções as quais evitem ou no...
           </Typography>
           <Typography
             component="a"
