@@ -18,7 +18,6 @@ import BackupTableOutlinedIcon from '@mui/icons-material/BackupTableOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import useMediaQuery from '@mui/material/useMediaQuery'; // Hook para detectar o tamanho da tela
-
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar } from '@mui/material';
@@ -27,24 +26,29 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import LogoutIcon from '@mui/icons-material/Logout';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import { Link, useNavigate } from 'react-router-dom';
 
 
-const drawerWidth = 240;
-const itemsNav1 = [{ text: "Início", icon: <HomeOutlinedIcon /> }, { text: "Mensagem", icon: <EmailOutlinedIcon /> }];
-const itemsNav2 = [
-  { text: "Sistemas", icon: <BackupTableOutlinedIcon /> },
-  { text: "Suporte", icon: <HelpOutlineOutlinedIcon /> },
-  { text: "Ajustes", icon: <SettingsOutlinedIcon /> },
-];
 
-// Links para os sistemas
-const sistemasMenuItems = [
-  { text: "Sistema 1", link: "#" },
-  { text: "Sistema 2", link: "#" },
-  { text: "Sistema 3", link: "#" },
-];
 
 export default function Navbar() {
+  const navigate = useNavigate();
+
+  const drawerWidth = 240;
+  const itemsNav1 = [{ text: "Início", icon: <HomeOutlinedIcon /> }, { text: "Mensagem", icon: <EmailOutlinedIcon /> }];
+  const itemsNav2 = [
+    { text: "Sistemas", icon: <BackupTableOutlinedIcon /> },
+    { text: "Suporte", icon: <HelpOutlineOutlinedIcon /> },
+    { text: "Ajustes", icon: <SettingsOutlinedIcon /> },
+  ];
+
+  // Links para os sistemas
+  const sistemasMenuItems = [
+    { text: "Sistema 1", link: "#" },
+    { text: "Sistema 2", link: "#" },
+    { text: "Sistema 3", link: "#" },
+  ];
+
   const [anchorEl, setAnchorEl] = React.useState(null); // Estado para controlar o menu
   const [mobileOpen, setMobileOpen] = React.useState(false); // Estado para controlar o drawer em dispositivos móveis
   const open = Boolean(anchorEl); // Verifica se o menu está aberto
@@ -69,7 +73,7 @@ export default function Navbar() {
 
   const logo = (
     <Typography className={styles.logo}>
-      <h1 style={{fontStyle: "italic", fontWeight: 800}}>UniTL</h1>
+      <h1 style={{ fontStyle: "italic", fontWeight: 800 }}>UniTL</h1>
       <p>SISTEMA UNIFICADO</p>
     </Typography>
   );
@@ -86,6 +90,11 @@ export default function Navbar() {
   // Função para fechar o menu do footer
   const handleFooterMenuClose = () => {
     setFooterAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // 🚀 Remove o JWT do armazenamento
+    navigate("/login"); // 🚀 Redireciona para a tela de login
   };
 
   const footer = (
@@ -159,7 +168,7 @@ export default function Navbar() {
         </MenuItem>
 
         <Divider variant="middle" sx={{ borderBottomWidth: 2, borderColor: 'black' }} />
-        <MenuItem onClick={handleFooterMenuClose}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <LogoutIcon />
           </ListItemIcon>
@@ -234,9 +243,9 @@ export default function Navbar() {
                 >
                   {sistemasMenuItems.map((menuItem, idx) => (
                     <MenuItem key={idx} onClick={handleClose}>
-                      <a href={menuItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
+                      <Link to={menuItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
                         {menuItem.text}
-                      </a>
+                      </Link>
                     </MenuItem>
                   ))}
                 </Menu>
