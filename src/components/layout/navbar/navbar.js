@@ -22,7 +22,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'; // Hook para detectar o
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu'; // Ícone de menu para dispositivos móveis
 import { AppBar } from '@mui/material';
-import styles from "./navbar.module.css"
+import styles from "./navbar.module.css";
 
 const drawerWidth = 240;
 const itemsNav1 = [{ text: "Início", icon: <HomeOutlinedIcon /> }, { text: "Mensagem", icon: <EmailOutlinedIcon /> }];
@@ -62,15 +62,16 @@ export default function Navbar() {
     setMobileOpen(!mobileOpen);
   };
 
-  const logo = (<Typography className={styles.logo}>
-    <h1>UniTL</h1>
-    <p>SISTEMA UNIFICADO</p>
-  </Typography>
+  const logo = (
+    <Typography className={styles.logo}>
+      <h1>UniTL</h1>
+      <p>SISTEMA UNIFICADO</p>
+    </Typography>
   );
 
   const footer = (
     <Box sx={{
-      position: 'absolute',
+      position: "absolute",
       bottom: 0,
       width: '100%',
       padding: 2,
@@ -195,7 +196,7 @@ export default function Navbar() {
       <CssBaseline />
       {/* Drawer para dispositivos móveis */}
       {isMobile && (
-        <AppBar position='fixed' sx={{ background: 'linear-gradient(180deg, #050A24, #0E1C58)', display: "flex", justifyContent: 'center', flexDirection: "row" }}>
+        <AppBar position='fixed' sx={{ background: 'linear-gradient(180deg, #050A24, #0E1C58)', display: "flex", justifyContent: 'center', flexDirection: "row", height: '80px' }}>
           <Toolbar>
             <IconButton
               color="inherit"
@@ -234,7 +235,9 @@ export default function Navbar() {
         </Box>)}
         {drawerContent}
       </Drawer>
-      <Outlet />
+      <Box component="main" sx={{ marginTop: isMobile ? '80px' : 0, backgroundColor: 'white'}}>
+        <Outlet />
+      </Box>
     </Box>
   );
 }
