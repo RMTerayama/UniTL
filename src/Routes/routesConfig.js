@@ -17,7 +17,7 @@ const router = createBrowserRouter([
         element: <Page />,
         children: [
           { path: "home", element: <Home /> },
-          { path: "chat", element: <chat /> }, // Certifique-se de que <Chat /> esteja importado corretamente
+          { path: "chat", element: <Chat /> }, // Certifique-se de que <Chat /> esteja importado corretamente
         ],
       },
       { path: "/homeTeste", element: <HomeTeste /> },
