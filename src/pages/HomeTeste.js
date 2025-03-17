@@ -6,7 +6,7 @@ export default function HomeTeste() {
 
     const handleLogout = () => {
         localStorage.removeItem("token"); // 🚀 Remove o JWT do armazenamento
-        navigate("/"); // 🚀 Redireciona para a tela de login
+        navigate("/login"); // 🚀 Redireciona para a tela de login
     };
 
     return (
