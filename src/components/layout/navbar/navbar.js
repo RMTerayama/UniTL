@@ -28,10 +28,12 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import LogoutIcon from '@mui/icons-material/Logout';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, NavLink } from 'react-router-dom';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import user from "./user.png"
 
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 const itemsNav1 = [{ text: "Início", icon: <HomeOutlinedIcon />, route: "/home" }, { text: "Mensagem", icon: <EmailOutlinedIcon />, route: "/chat" }];
 const itemsNav2 = [
   { text: "Sistemas", icon: <BackupTableOutlinedIcon /> },
@@ -49,6 +51,8 @@ const sistemasMenuItems = [
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null); // Estado para controlar o menu
   const [mobileOpen, setMobileOpen] = React.useState(false); // Estado para controlar o drawer em dispositivos móveis
+  const [isRotated, setIsRotated] = React.useState(false); // Estado para controlar a rotação do perfil
+  const [isRotatedSistemas, setIsRotatedSistemas] = React.useState(false); // Estado para controlar a rotação do perfil
   const open = Boolean(anchorEl); // Verifica se o menu está aberto
 
   const navigate = useNavigate();
@@ -59,11 +63,13 @@ export default function Navbar() {
   // Função para abrir o menu
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    setIsRotatedSistemas(!isRotatedSistemas);
   };
 
   // Função para fechar o menu
   const handleClose = () => {
     setAnchorEl(null);
+    setIsRotatedSistemas(!isRotatedSistemas);
   };
 
   // Função para alternar o drawer em dispositivos móveis
@@ -73,7 +79,7 @@ export default function Navbar() {
 
   const logo = (
     <Typography className={styles.logo}>
-      <h1 style={{fontStyle: "italic", fontWeight: 800}}>UniTL</h1>
+      <h1 style={{ fontStyle: "italic", fontWeight: 800 }}>UniTL</h1>
       <p>SISTEMA UNIFICADO</p>
     </Typography>
   );
@@ -85,17 +91,19 @@ export default function Navbar() {
   // Função para abrir o menu do footer
   const handleFooterMenuOpen = (event) => {
     setFooterAnchorEl(event.currentTarget);
+    setIsRotated(!isRotated);
   };
 
   // Função para fechar o menu do footer
   const handleFooterMenuClose = () => {
     setFooterAnchorEl(null);
+    setIsRotated(!isRotated);
   };
 
   const handleLogout = () => {
     localStorage.removeItem("token"); // 🚀 Remove o JWT do armazenamento
     navigate("/login"); // 🚀 Redireciona para a tela de login
-};
+  };
 
   const footer = (
     <Box
@@ -111,20 +119,34 @@ export default function Navbar() {
     >
       <Box
         sx={{
+          borderRadius: "10px",
+          padding: "5px 5px 5px 0px",
+          margin: "5px 5px 5px 0px",
           display: 'flex',
           justifyContent: 'center',
+          alignItems: "center",
           color: 'white',
           cursor: 'pointer', // Indica que o componente é clicável
+          '&:hover': { backgroundColor: '#0d3d8a', transition: 'background-color 0.3s' }
         }}
         onClick={handleFooterMenuOpen} // Abre o menu ao clicar
       >
-        <span className={styles.image_user}>
-          <img href="" alt="perfil do usuário" />
-        </span>
+        <Box component="img" src={user} alt="perfil do usuário" className={styles.image_user} />
+
         <span className={styles.info_user}>
           Caveira <br />
           meia_noite@teconto.com
         </span>
+        <span
+          className={styles.seta}
+          style={{
+            transform: isRotated ? 'rotate(180deg)' : 'rotate(0deg)', // Aplica a rotação
+            transition: 'transform 0.3s', // Adiciona uma transição suave
+          }}
+        >
+          <KeyboardArrowUpIcon />
+        </span>
+
       </Box>
 
       {/* Menu do footer */}
@@ -136,31 +158,31 @@ export default function Navbar() {
         open={isFooterMenuOpen}
         onClose={handleFooterMenuClose}
         anchorOrigin={{
-          vertical: 'top', // Posiciona o menu acima do elemento clicado
+          vertical: 'top',
           horizontal: 'right',
         }}
         transformOrigin={{
-          vertical: 'bottom', // Faz o menu "crescer" para cima
+          vertical: 'bottom',
           horizontal: 'right',
         }}
+        disableAutoFocusItem // Desabilita o foco automático no MenuItem
       >
-        <MenuItem onClick={handleFooterMenuClose}>
+        <MenuItem component={Link} to="#">
           <ListItemIcon>
-            <PersonOutlineOutlinedIcon /> {/* Ícone de perfil */}
+            <PersonOutlineOutlinedIcon />
           </ListItemIcon>
           <ListItemText>Perfil</ListItemText>
         </MenuItem>
 
-        {/* Opção 2 */}
-        <MenuItem onClick={handleFooterMenuClose}>
+        {/* Outros MenuItems */}
+        <MenuItem component={Link} to="#">
           <ListItemIcon>
-            <VerifiedUserIcon /> {/* Ícone de configurações */}
+            <VerifiedUserIcon />
           </ListItemIcon>
           <ListItemText>Políticas de privacidade</ListItemText>
         </MenuItem>
 
-        {/* Opção 3 */}
-        <MenuItem onClick={handleFooterMenuClose}>
+        <MenuItem component={Link} to="#">
           <ListItemIcon>
             <SettingsOutlinedIcon />
           </ListItemIcon>
@@ -183,28 +205,38 @@ export default function Navbar() {
     <>
       <List>
         {itemsNav1.map((item, index) => (
-          <ListItem key={index}>
-            <ListItemButton
-              onClick={() => navigate(item.route)}
-              sx={{
+          <ListItem key={index} sx={{paddingTop: "0px", paddingBottom: "5px"}}> 
+            <NavLink
+              to={item.route}
+              style={({ isActive }) => ({
+                textDecoration: 'none',
+                color: 'inherit',
+                width: '100%',
                 borderRadius: '10px',
-                display: 'flex',
-                alignItems: 'flex-start',
-                '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)', transition: 'background-color 0.3s' },
-              }}
+                backgroundColor: isActive ? '#0d3d8a' : 'transparent', // Destaca o item ativo
+              })}
             >
-              <ListItemIcon sx={{ minWidth: '40px', color: 'white', fontSize: 30 }}>
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText primary={item.text} sx={{ paddingLeft: '0' }} />
-            </ListItemButton>
+              <ListItemButton
+                sx={{
+                  borderRadius: '10px',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  '&:hover': { backgroundColor: '#0d3d8a', transition: 'background-color 0.3s' },
+                }}
+              >
+                <ListItemIcon sx={{ minWidth: '40px', color: 'white', fontSize: 30 }}>
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.text} sx={{ paddingLeft: '0' }} />
+              </ListItemButton>
+            </NavLink>
           </ListItem>
         ))}
       </List>
       <Divider variant="middle" sx={{ borderBottomWidth: 2, borderColor: 'white' }} />
       <List>
         {itemsNav2.map((item, index) => (
-          <ListItem key={index}>
+          <ListItem key={index} sx={{paddingTop: "0px", paddingBottom: "5px"}}>
             {item.text === "Sistemas" ? (
               <>
                 <ListItemButton
@@ -213,14 +245,16 @@ export default function Navbar() {
                     borderRadius: '10px',
                     display: 'flex',
                     alignItems: 'flex-start',
-                    '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)', transition: 'background-color 0.3s' },
+                    backgroundColor: open ? '#0d3d8a' : "transparent",
+                    '&:hover': { backgroundColor: '#0d3d8a', transition: 'background-color 0.3s' },
                   }}
                 >
                   <ListItemIcon sx={{ minWidth: '40px', color: 'white', fontSize: 30 }}>
                     {item.icon}
                   </ListItemIcon>
-                  <ListItemText sx={{ paddingLeft: '0' }}>
-                    <>Sistemas <KeyboardArrowRightIcon /></>
+                  <ListItemText sx={{ paddingLeft: '0', }}>
+                    <>Sistemas <KeyboardArrowRightIcon sx={{ transform: isRotatedSistemas ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s',
+                    }} /></>
                   </ListItemText>
                 </ListItemButton>
                 <Menu
@@ -240,14 +274,24 @@ export default function Navbar() {
                   }}
                   MenuListProps={{
                     'aria-labelledby': 'sistemas-button',
+                    sx: { padding: 0 }, // Remove o padding do MenuList
                   }}
                 >
                   {sistemasMenuItems.map((menuItem, idx) => (
-                    <MenuItem key={idx} onClick={handleClose}>
-                      <Link to={menuItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
-                        {menuItem.text}
-                      </Link>
-                    </MenuItem>
+                    <React.Fragment key={idx}>
+                      <MenuItem
+                        onClick={handleClose}
+                        sx={{ padding: 0 }} // Remove o padding do MenuItem
+                      >
+                        <Link to={menuItem.link} style={{ textDecoration: 'none', color: 'inherit', padding: '8px 16px', display: 'block', width: '100%' }}>
+                          {menuItem.text}
+                        </Link>
+                      </MenuItem>
+                      {/* Renderiza o Divider apenas se não for o último item */}
+                      {idx !== sistemasMenuItems.length - 1 && (
+                        <Divider className={styles.list_sistemas} />
+                      )}
+                    </React.Fragment>
                   ))}
                 </Menu>
               </>
@@ -257,7 +301,7 @@ export default function Navbar() {
                   borderRadius: '10px',
                   display: 'flex',
                   alignItems: 'flex-start',
-                  '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)', transition: 'background-color 0.3s' },
+                  '&:hover': { backgroundColor: '#0d3d8a', transition: 'background-color 0.3s' },
                 }}
               >
                 <ListItemIcon sx={{ minWidth: '40px', color: 'white', fontSize: 30 }}>
@@ -279,13 +323,13 @@ export default function Navbar() {
         display: 'flex',
         minHeight: !isMobile ? '100vh' : 'auto',
         width: !isMobile ? drawerWidth : '10%',
-        background: 'linear-gradient(180deg, #050A24, #0E1C58)',
+        background: 'linear-gradient(180deg, #050A24 40%, #13268A 98%)',
       }}
     >
       <CssBaseline />
       {/* Drawer para dispositivos móveis */}
       {isMobile && (
-        <AppBar position='fixed' sx={{ background: 'linear-gradient(180deg, #050A24, #0E1C58)', display: "flex", justifyContent: 'center', flexDirection: "row", height: '80px' }}>
+        <AppBar position='fixed' sx={{ background: 'linear-gradient(180deg, #050A24 10%, #13268A 98%)', display: "flex", justifyContent: 'center', flexDirection: "row", height: '80px' }}>
           <Toolbar>
             <IconButton
               color="inherit"
@@ -296,9 +340,9 @@ export default function Navbar() {
             >
               <MenuIcon />
             </IconButton>
-            <span>
+            <Link to="/home" style={{ textDecoration: 'none', color: 'inherit' }}>
               {logo}
-            </span>
+            </Link>
           </Toolbar>
         </AppBar>
       )}
@@ -312,14 +356,16 @@ export default function Navbar() {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
-            background: 'linear-gradient(180deg, #050A24, #0E1C58)',
+            background: 'linear-gradient(180deg, #050A24 40%, #13268A 98%)',
             color: 'white',
           },
         }}
         anchor="left"
       >
         {!isMobile && (<Box sx={{ paddingTop: 2 }}>
-          {logo}
+          <Link to="/home" style={{ textDecoration: 'none', color: 'inherit' }}>
+            {logo}
+          </Link>
           <Divider variant="middle" sx={{ borderBottomWidth: 2, borderColor: 'white' }} />
         </Box>)}
         {drawerContent}
