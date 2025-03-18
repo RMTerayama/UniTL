@@ -131,7 +131,7 @@ export default function Navbar() {
           Caveira <br />
           meia_noite@teconto.com
         </span>
-        <span>
+        <span className={styles.seta}>
           <KeyboardArrowUpIcon />
         </span>
 

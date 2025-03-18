@@ -32,6 +32,10 @@
   padding-bottom: 0px !important;
 }
 
+.seta{
+  margin-left: 7px;
+}
+
 /* Estilos para o Drawer */
 .drawer {
   width: 240px;
