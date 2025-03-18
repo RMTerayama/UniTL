@@ -18,7 +18,6 @@ import BackupTableOutlinedIcon from '@mui/icons-material/BackupTableOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import useMediaQuery from '@mui/material/useMediaQuery'; // Hook para detectar o tamanho da tela
-
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar } from '@mui/material';
@@ -27,26 +26,9 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import LogoutIcon from '@mui/icons-material/Logout';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-
 import { Link, useNavigate, NavLink } from 'react-router-dom';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import user from "./user.png"
-
-
-const drawerWidth = 250;
-const itemsNav1 = [{ text: "Início", icon: <HomeOutlinedIcon />, route: "/home" }, { text: "Mensagem", icon: <EmailOutlinedIcon />, route: "/chat" }];
-const itemsNav2 = [
-  { text: "Sistemas", icon: <BackupTableOutlinedIcon /> },
-  { text: "Suporte", icon: <HelpOutlineOutlinedIcon /> },
-  { text: "Ajustes", icon: <SettingsOutlinedIcon /> },
-];
-
-// Links para os sistemas
-const sistemasMenuItems = [
-  { text: "Sistema 1", link: "#" },
-  { text: "Sistema 2", link: "#" },
-  { text: "Sistema 3", link: "#" },
-];
 
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null); // Estado para controlar o menu
@@ -54,6 +36,21 @@ export default function Navbar() {
   const [isRotated, setIsRotated] = React.useState(false); // Estado para controlar a rotação do perfil
   const [isRotatedSistemas, setIsRotatedSistemas] = React.useState(false); // Estado para controlar a rotação do perfil
   const open = Boolean(anchorEl); // Verifica se o menu está aberto
+
+  const drawerWidth = 250;
+  const itemsNav1 = [{ text: "Início", icon: <HomeOutlinedIcon />, route: "/home" }, { text: "Mensagem", icon: <EmailOutlinedIcon />, route: "/chat" }];
+  const itemsNav2 = [
+    { text: "Sistemas", icon: <BackupTableOutlinedIcon /> },
+    { text: "Suporte", icon: <HelpOutlineOutlinedIcon /> },
+    { text: "Ajustes", icon: <SettingsOutlinedIcon /> },
+  ];
+
+  // Links para os sistemas
+  const sistemasMenuItems = [
+    { text: "Sistema 1", link: "#" },
+    { text: "Sistema 2", link: "#" },
+    { text: "Sistema 3", link: "#" },
+  ];
 
   const navigate = useNavigate();
 
@@ -108,26 +105,35 @@ export default function Navbar() {
   const footer = (
     <Box
       sx={{
+        zIndex:"310",
         position: "absolute",
         bottom: 0,
         width: '100%',
-        padding: 2,
+        padding: "10px",
         backgroundColor: 'transparent',
         display: "flex",
         flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        borderTop: "2px solid rgb(255,255,255, 0.25)",
+        margin: "5px 0px 5px 0px",
       }}
     >
+     
       <Box
         sx={{
           borderRadius: "10px",
           padding: "5px 5px 5px 0px",
-          margin: "5px 5px 5px 0px",
+          /* margin: "5px 5px 5px 0px", */
           display: 'flex',
           justifyContent: 'center',
           alignItems: "center",
           color: 'white',
-          cursor: 'pointer', // Indica que o componente é clicável
-          '&:hover': { backgroundColor: '#0d3d8a', transition: 'background-color 0.3s' }
+          cursor: 'pointer',
+          '&:hover': {
+            backgroundColor: '#0d3d8a',
+            transition: 'background-color 0.3s'
+          }
         }}
         onClick={handleFooterMenuOpen} // Abre o menu ao clicar
       >
@@ -205,7 +211,7 @@ export default function Navbar() {
     <>
       <List>
         {itemsNav1.map((item, index) => (
-          <ListItem key={index} sx={{paddingTop: "0px", paddingBottom: "5px"}}> 
+          <ListItem key={index} sx={{ paddingTop: "0px", paddingBottom: "5px" }}>
             <NavLink
               to={item.route}
               style={({ isActive }) => ({
@@ -236,7 +242,7 @@ export default function Navbar() {
       <Divider variant="middle" sx={{ borderBottomWidth: 2, borderColor: 'white' }} />
       <List>
         {itemsNav2.map((item, index) => (
-          <ListItem key={index} sx={{paddingTop: "0px", paddingBottom: "5px"}}>
+          <ListItem key={index} sx={{ paddingTop: "0px", paddingBottom: "5px" }}>
             {item.text === "Sistemas" ? (
               <>
                 <ListItemButton
@@ -253,7 +259,8 @@ export default function Navbar() {
                     {item.icon}
                   </ListItemIcon>
                   <ListItemText sx={{ paddingLeft: '0', }}>
-                    <>Sistemas <KeyboardArrowRightIcon sx={{ transform: isRotatedSistemas ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s',
+                    <>Sistemas <KeyboardArrowRightIcon sx={{
+                      transform: isRotatedSistemas ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s',
                     }} /></>
                   </ListItemText>
                 </ListItemButton>
@@ -313,6 +320,7 @@ export default function Navbar() {
           </ListItem>
         ))}
       </List>
+      
       {footer} {/* Footer inserido aqui */}
     </>
   );
