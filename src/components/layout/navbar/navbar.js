@@ -51,6 +51,8 @@ const sistemasMenuItems = [
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null); // Estado para controlar o menu
   const [mobileOpen, setMobileOpen] = React.useState(false); // Estado para controlar o drawer em dispositivos móveis
+  const [isRotated, setIsRotated] = React.useState(false); // Estado para controlar a rotação do perfil
+  const [isRotatedSistemas, setIsRotatedSistemas] = React.useState(false); // Estado para controlar a rotação do perfil
   const open = Boolean(anchorEl); // Verifica se o menu está aberto
 
   const navigate = useNavigate();
@@ -61,11 +63,13 @@ export default function Navbar() {
   // Função para abrir o menu
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    setIsRotatedSistemas(!isRotatedSistemas);
   };
 
   // Função para fechar o menu
   const handleClose = () => {
     setAnchorEl(null);
+    setIsRotatedSistemas(!isRotatedSistemas);
   };
 
   // Função para alternar o drawer em dispositivos móveis
@@ -87,11 +91,13 @@ export default function Navbar() {
   // Função para abrir o menu do footer
   const handleFooterMenuOpen = (event) => {
     setFooterAnchorEl(event.currentTarget);
+    setIsRotated(!isRotated);
   };
 
   // Função para fechar o menu do footer
   const handleFooterMenuClose = () => {
     setFooterAnchorEl(null);
+    setIsRotated(!isRotated);
   };
 
   const handleLogout = () => {
@@ -131,7 +137,13 @@ export default function Navbar() {
           Caveira <br />
           meia_noite@teconto.com
         </span>
-        <span className={styles.seta}>
+        <span
+          className={styles.seta}
+          style={{
+            transform: isRotated ? 'rotate(180deg)' : 'rotate(0deg)', // Aplica a rotação
+            transition: 'transform 0.3s', // Adiciona uma transição suave
+          }}
+        >
           <KeyboardArrowUpIcon />
         </span>
 
@@ -240,8 +252,9 @@ export default function Navbar() {
                   <ListItemIcon sx={{ minWidth: '40px', color: 'white', fontSize: 30 }}>
                     {item.icon}
                   </ListItemIcon>
-                  <ListItemText sx={{ paddingLeft: '0' }}>
-                    <>Sistemas <KeyboardArrowRightIcon /></>
+                  <ListItemText sx={{ paddingLeft: '0', }}>
+                    <>Sistemas <KeyboardArrowRightIcon sx={{ transform: isRotatedSistemas ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s',
+                    }} /></>
                   </ListItemText>
                 </ListItemButton>
                 <Menu
