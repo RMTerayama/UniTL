@@ -126,7 +126,7 @@ export default function Navbar() {
         onClick={handleFooterMenuOpen} // Abre o menu ao clicar
       >
         <Box component="img" src={user} alt="perfil do usuário" className={styles.image_user} />
-        
+
         <span className={styles.info_user}>
           Caveira <br />
           meia_noite@teconto.com
@@ -146,32 +146,31 @@ export default function Navbar() {
         open={isFooterMenuOpen}
         onClose={handleFooterMenuClose}
         anchorOrigin={{
-          vertical: 'top', // Posiciona o menu acima do elemento clicado
+          vertical: 'top',
           horizontal: 'right',
         }}
         transformOrigin={{
-          vertical: 'bottom', // Faz o menu "crescer" para cima
+          vertical: 'bottom',
           horizontal: 'right',
         }}
+        disableAutoFocusItem // Desabilita o foco automático no MenuItem
       >
-        <MenuItem component={Link} to="/">
+        <MenuItem component={Link} to="#">
           <ListItemIcon>
-            <PersonOutlineOutlinedIcon /> {/* Ícone de perfil */}
+            <PersonOutlineOutlinedIcon />
           </ListItemIcon>
           <ListItemText>Perfil</ListItemText>
         </MenuItem>
 
-        {/* Opção 2 */}
-        <MenuItem component={Link} to="/">
+        {/* Outros MenuItems */}
+        <MenuItem component={Link} to="#">
           <ListItemIcon>
-            <VerifiedUserIcon /> {/* Ícone de configurações */}
+            <VerifiedUserIcon />
           </ListItemIcon>
           <ListItemText>Políticas de privacidade</ListItemText>
         </MenuItem>
 
-        {/* Opção 3 */}
-        <MenuItem component={Link} to="/">
-
+        <MenuItem component={Link} to="#">
           <ListItemIcon>
             <SettingsOutlinedIcon />
           </ListItemIcon>
@@ -235,7 +234,7 @@ export default function Navbar() {
                     display: 'flex',
                     alignItems: 'flex-start',
                     backgroundColor: open ? '#0d3d8a' : "transparent",
-                    '&:hover': { backgroundColor:  '#0d3d8a', transition: 'background-color 0.3s' },
+                    '&:hover': { backgroundColor: '#0d3d8a', transition: 'background-color 0.3s' },
                   }}
                 >
                   <ListItemIcon sx={{ minWidth: '40px', color: 'white', fontSize: 30 }}>
