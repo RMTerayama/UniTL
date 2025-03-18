@@ -323,13 +323,13 @@ export default function Navbar() {
         display: 'flex',
         minHeight: !isMobile ? '100vh' : 'auto',
         width: !isMobile ? drawerWidth : '10%',
-        background: 'linear-gradient(180deg, #050A24, #0E1C58)',
+        background: 'linear-gradient(180deg, #050A24 40%, #13268A 98%)',
       }}
     >
       <CssBaseline />
       {/* Drawer para dispositivos móveis */}
       {isMobile && (
-        <AppBar position='fixed' sx={{ background: 'linear-gradient(180deg, #050A24, #0E1C58)', display: "flex", justifyContent: 'center', flexDirection: "row", height: '80px' }}>
+        <AppBar position='fixed' sx={{ background: 'linear-gradient(180deg, #050A24 10%, #13268A 98%)', display: "flex", justifyContent: 'center', flexDirection: "row", height: '80px' }}>
           <Toolbar>
             <IconButton
               color="inherit"
@@ -356,7 +356,7 @@ export default function Navbar() {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
-            background: 'linear-gradient(180deg, #050A24, #0E1C58)',
+            background: 'linear-gradient(180deg, #050A24 40%, #13268A 98%)',
             color: 'white',
           },
         }}
