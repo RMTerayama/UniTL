@@ -111,7 +111,7 @@ export default function Navbar() {
       flexDirection: "column",
       alignItems: "center"
     }}>
-      <Box sx={{ borderBottom: "2px solid rgb(255,255,255, 0.25)", width: "87%", my: 1 }} />
+      <Box sx={{ borderBottom: "2px solid rgb(255,255,255, 0.25)", width: "87%" }} />
       <Box
         sx={{
 
@@ -121,7 +121,6 @@ export default function Navbar() {
           flexDirection: "row",
           justifyContent: "center",
           alignItems: "center",
-          /* borderTop: "2px solid rgb(255,255,255, 0.25)", */
           margin: "5px 0px 5px 0px",
         }}
       >
