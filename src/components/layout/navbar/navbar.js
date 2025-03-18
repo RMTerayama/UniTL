@@ -30,9 +30,10 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 import { Link, useNavigate, NavLink } from 'react-router-dom';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import user from "./user.png"
 
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 const itemsNav1 = [{ text: "Início", icon: <HomeOutlinedIcon />, route: "/home" }, { text: "Mensagem", icon: <EmailOutlinedIcon />, route: "/chat" }];
 const itemsNav2 = [
   { text: "Sistemas", icon: <BackupTableOutlinedIcon /> },
@@ -108,13 +109,13 @@ export default function Navbar() {
         backgroundColor: 'transparent',
         display: "flex",
         flexDirection: "row",
-
       }}
     >
       <Box
         sx={{
           borderRadius: "10px",
-          padding: "5px",
+          padding: "5px 5px 5px 0px",
+          margin: "5px 5px 5px 0px",
           display: 'flex',
           justifyContent: 'center',
           alignItems: "center",
@@ -124,9 +125,8 @@ export default function Navbar() {
         }}
         onClick={handleFooterMenuOpen} // Abre o menu ao clicar
       >
-        <span className={styles.image_user}>
-          <img href="" alt="perfil do usuário" />
-        </span>
+        <Box component="img" src={user} alt="perfil do usuário" className={styles.image_user} />
+        
         <span className={styles.info_user}>
           Caveira <br />
           meia_noite@teconto.com
@@ -234,7 +234,8 @@ export default function Navbar() {
                     borderRadius: '10px',
                     display: 'flex',
                     alignItems: 'flex-start',
-                    '&:hover': { backgroundColor: '#0d3d8a', transition: 'background-color 0.3s' },
+                    backgroundColor: open ? '#0d3d8a' : "transparent",
+                    '&:hover': { backgroundColor:  '#0d3d8a', transition: 'background-color 0.3s' },
                   }}
                 >
                   <ListItemIcon sx={{ minWidth: '40px', color: 'white', fontSize: 30 }}>

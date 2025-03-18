@@ -2,10 +2,11 @@
 
 .image_user {
   margin-right: 5px;
+  width: 60px;
 }
 
 .info_user{
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .logo {
