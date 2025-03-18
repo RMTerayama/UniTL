@@ -28,7 +28,8 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import LogoutIcon from '@mui/icons-material/Logout';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, NavLink } from 'react-router-dom';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 
 const drawerWidth = 240;
@@ -73,7 +74,7 @@ export default function Navbar() {
 
   const logo = (
     <Typography className={styles.logo}>
-      <h1 style={{fontStyle: "italic", fontWeight: 800}}>UniTL</h1>
+      <h1 style={{ fontStyle: "italic", fontWeight: 800 }}>UniTL</h1>
       <p>SISTEMA UNIFICADO</p>
     </Typography>
   );
@@ -95,7 +96,7 @@ export default function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("token"); // 🚀 Remove o JWT do armazenamento
     navigate("/login"); // 🚀 Redireciona para a tela de login
-};
+  };
 
   const footer = (
     <Box
@@ -107,14 +108,19 @@ export default function Navbar() {
         backgroundColor: 'transparent',
         display: "flex",
         flexDirection: "row",
+
       }}
     >
       <Box
         sx={{
+          borderRadius: "10px",
+          padding: "5px",
           display: 'flex',
           justifyContent: 'center',
+          alignItems: "center",
           color: 'white',
           cursor: 'pointer', // Indica que o componente é clicável
+          '&:hover': { backgroundColor: '#0d3d8a', transition: 'background-color 0.3s' }
         }}
         onClick={handleFooterMenuOpen} // Abre o menu ao clicar
       >
@@ -125,6 +131,10 @@ export default function Navbar() {
           Caveira <br />
           meia_noite@teconto.com
         </span>
+        <span>
+          <KeyboardArrowUpIcon />
+        </span>
+
       </Box>
 
       {/* Menu do footer */}
@@ -144,7 +154,7 @@ export default function Navbar() {
           horizontal: 'right',
         }}
       >
-        <MenuItem onClick={handleFooterMenuClose}>
+        <MenuItem component={Link} to="/">
           <ListItemIcon>
             <PersonOutlineOutlinedIcon /> {/* Ícone de perfil */}
           </ListItemIcon>
@@ -152,7 +162,7 @@ export default function Navbar() {
         </MenuItem>
 
         {/* Opção 2 */}
-        <MenuItem onClick={handleFooterMenuClose}>
+        <MenuItem component={Link} to="/">
           <ListItemIcon>
             <VerifiedUserIcon /> {/* Ícone de configurações */}
           </ListItemIcon>
@@ -160,7 +170,8 @@ export default function Navbar() {
         </MenuItem>
 
         {/* Opção 3 */}
-        <MenuItem onClick={handleFooterMenuClose}>
+        <MenuItem component={Link} to="/">
+
           <ListItemIcon>
             <SettingsOutlinedIcon />
           </ListItemIcon>
@@ -184,20 +195,30 @@ export default function Navbar() {
       <List>
         {itemsNav1.map((item, index) => (
           <ListItem key={index}>
-            <ListItemButton
-              onClick={() => navigate(item.route)}
-              sx={{
+            <NavLink
+              to={item.route}
+              style={({ isActive }) => ({
+                textDecoration: 'none',
+                color: 'inherit',
+                width: '100%',
                 borderRadius: '10px',
-                display: 'flex',
-                alignItems: 'flex-start',
-                '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)', transition: 'background-color 0.3s' },
-              }}
+                backgroundColor: isActive ? '#0d3d8a' : 'transparent', // Destaca o item ativo
+              })}
             >
-              <ListItemIcon sx={{ minWidth: '40px', color: 'white', fontSize: 30 }}>
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText primary={item.text} sx={{ paddingLeft: '0' }} />
-            </ListItemButton>
+              <ListItemButton
+                sx={{
+                  borderRadius: '10px',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  '&:hover': { backgroundColor: '#0d3d8a', transition: 'background-color 0.3s' },
+                }}
+              >
+                <ListItemIcon sx={{ minWidth: '40px', color: 'white', fontSize: 30 }}>
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.text} sx={{ paddingLeft: '0' }} />
+              </ListItemButton>
+            </NavLink>
           </ListItem>
         ))}
       </List>
@@ -213,7 +234,7 @@ export default function Navbar() {
                     borderRadius: '10px',
                     display: 'flex',
                     alignItems: 'flex-start',
-                    '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)', transition: 'background-color 0.3s' },
+                    '&:hover': { backgroundColor: '#0d3d8a', transition: 'background-color 0.3s' },
                   }}
                 >
                   <ListItemIcon sx={{ minWidth: '40px', color: 'white', fontSize: 30 }}>
@@ -240,14 +261,24 @@ export default function Navbar() {
                   }}
                   MenuListProps={{
                     'aria-labelledby': 'sistemas-button',
+                    sx: { padding: 0 }, // Remove o padding do MenuList
                   }}
                 >
                   {sistemasMenuItems.map((menuItem, idx) => (
-                    <MenuItem key={idx} onClick={handleClose}>
-                      <Link to={menuItem.link} style={{ textDecoration: 'none', color: 'inherit' }}>
-                        {menuItem.text}
-                      </Link>
-                    </MenuItem>
+                    <React.Fragment key={idx}>
+                      <MenuItem
+                        onClick={handleClose}
+                        sx={{ padding: 0 }} // Remove o padding do MenuItem
+                      >
+                        <Link to={menuItem.link} style={{ textDecoration: 'none', color: 'inherit', padding: '8px 16px', display: 'block', width: '100%' }}>
+                          {menuItem.text}
+                        </Link>
+                      </MenuItem>
+                      {/* Renderiza o Divider apenas se não for o último item */}
+                      {idx !== sistemasMenuItems.length - 1 && (
+                        <Divider className={styles.list_sistemas} />
+                      )}
+                    </React.Fragment>
                   ))}
                 </Menu>
               </>
@@ -257,7 +288,7 @@ export default function Navbar() {
                   borderRadius: '10px',
                   display: 'flex',
                   alignItems: 'flex-start',
-                  '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)', transition: 'background-color 0.3s' },
+                  '&:hover': { backgroundColor: '#0d3d8a', transition: 'background-color 0.3s' },
                 }}
               >
                 <ListItemIcon sx={{ minWidth: '40px', color: 'white', fontSize: 30 }}>
@@ -296,9 +327,9 @@ export default function Navbar() {
             >
               <MenuIcon />
             </IconButton>
-            <span>
+            <Link to="/home" style={{ textDecoration: 'none', color: 'inherit' }}>
               {logo}
-            </span>
+            </Link>
           </Toolbar>
         </AppBar>
       )}
@@ -319,7 +350,9 @@ export default function Navbar() {
         anchor="left"
       >
         {!isMobile && (<Box sx={{ paddingTop: 2 }}>
-          {logo}
+          <Link to="/home" style={{ textDecoration: 'none', color: 'inherit' }}>
+            {logo}
+          </Link>
           <Divider variant="middle" sx={{ borderBottomWidth: 2, borderColor: 'white' }} />
         </Box>)}
         {drawerContent}
