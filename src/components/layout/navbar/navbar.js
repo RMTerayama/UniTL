@@ -205,7 +205,7 @@ export default function Navbar() {
     <>
       <List>
         {itemsNav1.map((item, index) => (
-          <ListItem key={index}>
+          <ListItem key={index} sx={{paddingTop: "0px", paddingBottom: "5px"}}> 
             <NavLink
               to={item.route}
               style={({ isActive }) => ({
@@ -236,7 +236,7 @@ export default function Navbar() {
       <Divider variant="middle" sx={{ borderBottomWidth: 2, borderColor: 'white' }} />
       <List>
         {itemsNav2.map((item, index) => (
-          <ListItem key={index}>
+          <ListItem key={index} sx={{paddingTop: "0px", paddingBottom: "5px"}}>
             {item.text === "Sistemas" ? (
               <>
                 <ListItemButton
