@@ -103,106 +103,113 @@ export default function Navbar() {
   };
 
   const footer = (
-    <Box
-      sx={{
-        zIndex:"310",
-        position: "absolute",
-        bottom: 0,
-        width: '100%',
-        padding: "10px",
-        backgroundColor: 'transparent',
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        borderTop: "2px solid rgb(255,255,255, 0.25)",
-        margin: "5px 0px 5px 0px",
-      }}
-    >
-     
+    <Box sx={{
+      position: "absolute",
+      bottom: 0,
+      width: '100%',
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center"
+    }}>
+      <Box sx={{ borderBottom: "2px solid rgb(255,255,255, 0.25)", width: "87%", my: 1 }} />
       <Box
         sx={{
-          borderRadius: "10px",
-          padding: "5px 5px 5px 0px",
-          /* margin: "5px 5px 5px 0px", */
-          display: 'flex',
-          justifyContent: 'center',
+
+          padding: "10px",
+          backgroundColor: 'transparent',
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
           alignItems: "center",
-          color: 'white',
-          cursor: 'pointer',
-          '&:hover': {
-            backgroundColor: '#0d3d8a',
-            transition: 'background-color 0.3s'
-          }
+          /* borderTop: "2px solid rgb(255,255,255, 0.25)", */
+          margin: "5px 0px 5px 0px",
         }}
-        onClick={handleFooterMenuOpen} // Abre o menu ao clicar
       >
-        <Box component="img" src={user} alt="perfil do usuário" className={styles.image_user} />
-
-        <span className={styles.info_user}>
-          Caveira <br />
-          meia_noite@teconto.com
-        </span>
-        <span
-          className={styles.seta}
-          style={{
-            transform: isRotated ? 'rotate(180deg)' : 'rotate(0deg)', // Aplica a rotação
-            transition: 'transform 0.3s', // Adiciona uma transição suave
+        
+        <Box
+          sx={{
+            borderRadius: "10px",
+            padding: "5px 5px 5px 0px",
+            /* margin: "5px 5px 5px 0px", */
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: "center",
+            color: 'white',
+            cursor: 'pointer',
+            '&:hover': {
+              backgroundColor: '#0d3d8a',
+              transition: 'background-color 0.3s'
+            }
           }}
+          onClick={handleFooterMenuOpen} // Abre o menu ao clicar
         >
-          <KeyboardArrowUpIcon />
-        </span>
+          <Box component="img" src={user} alt="perfil do usuário" className={styles.image_user} />
 
+          <span className={styles.info_user}>
+            Caveira <br />
+            meia_noite@teconto.com
+          </span>
+          <span
+            className={styles.seta}
+            style={{
+              transform: isRotated ? 'rotate(180deg)' : 'rotate(0deg)', // Aplica a rotação
+              transition: 'transform 0.3s', // Adiciona uma transição suave
+            }}
+          >
+            <KeyboardArrowUpIcon />
+          </span>
+
+        </Box>
+
+        {/* Menu do footer */}
+        <Menu
+          PaperProps={{
+            style: { backgroundColor: "#d9d9d9" }
+          }}
+          anchorEl={footerAnchorEl}
+          open={isFooterMenuOpen}
+          onClose={handleFooterMenuClose}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          disableAutoFocusItem // Desabilita o foco automático no MenuItem
+        >
+          <MenuItem component={Link} to="#">
+            <ListItemIcon>
+              <PersonOutlineOutlinedIcon />
+            </ListItemIcon>
+            <ListItemText>Perfil</ListItemText>
+          </MenuItem>
+
+          {/* Outros MenuItems */}
+          <MenuItem component={Link} to="#">
+            <ListItemIcon>
+              <VerifiedUserIcon />
+            </ListItemIcon>
+            <ListItemText>Políticas de privacidade</ListItemText>
+          </MenuItem>
+
+          <MenuItem component={Link} to="#">
+            <ListItemIcon>
+              <SettingsOutlinedIcon />
+            </ListItemIcon>
+            <ListItemText>Ajustes</ListItemText>
+          </MenuItem>
+
+          <Divider variant="middle" sx={{ borderBottomWidth: 2, borderColor: 'black' }} />
+          <MenuItem onClick={handleLogout}>
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText>Sair</ListItemText>
+          </MenuItem>
+        </Menu>
       </Box>
-
-      {/* Menu do footer */}
-      <Menu
-        PaperProps={{
-          style: { backgroundColor: "#d9d9d9" }
-        }}
-        anchorEl={footerAnchorEl}
-        open={isFooterMenuOpen}
-        onClose={handleFooterMenuClose}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        disableAutoFocusItem // Desabilita o foco automático no MenuItem
-      >
-        <MenuItem component={Link} to="#">
-          <ListItemIcon>
-            <PersonOutlineOutlinedIcon />
-          </ListItemIcon>
-          <ListItemText>Perfil</ListItemText>
-        </MenuItem>
-
-        {/* Outros MenuItems */}
-        <MenuItem component={Link} to="#">
-          <ListItemIcon>
-            <VerifiedUserIcon />
-          </ListItemIcon>
-          <ListItemText>Políticas de privacidade</ListItemText>
-        </MenuItem>
-
-        <MenuItem component={Link} to="#">
-          <ListItemIcon>
-            <SettingsOutlinedIcon />
-          </ListItemIcon>
-          <ListItemText>Ajustes</ListItemText>
-        </MenuItem>
-
-        <Divider variant="middle" sx={{ borderBottomWidth: 2, borderColor: 'black' }} />
-        <MenuItem onClick={handleLogout}>
-          <ListItemIcon>
-            <LogoutIcon />
-          </ListItemIcon>
-          <ListItemText>Sair</ListItemText>
-        </MenuItem>
-      </Menu>
     </Box>
   );
 
@@ -320,7 +327,7 @@ export default function Navbar() {
           </ListItem>
         ))}
       </List>
-      
+
       {footer} {/* Footer inserido aqui */}
     </>
   );
