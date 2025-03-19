@@ -20,7 +20,7 @@ export default function Formulario() {
     // 🚀 Função para fazer login e obter o token JWT
     const handleLogin = async () => {
         try {
-            const response = await axios.post("http://172.18.2.49:4000/auth/login", {
+            const response = await axios.post("http://localhost:4000/auth/login", {
                 usuario, 
                 password // 🚀 Alterado para "password" conforme esperado pelo backend
             });

@@ -1,8 +1,50 @@
 import React from "react";
 import { Box, Typography, Button, Grid, Paper } from "@mui/material";
 import heroImage from "../assets/hero-image-4.webp";
+// Se estiver usando axios, importe:
+import axios from "axios";
 
 export default function Home() {
+
+  const handleSigemClick = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        
+        if (!token) {
+            alert("Token não encontrado. Faça login no sistema unificado primeiro.");
+            return;
+        }
+
+        // 🔹 Define a URL do SSO dinamicamente para funcionar localmente e no servidor remoto
+        const ssoUrl = process.env.REACT_APP_SSO_URL || "http://172.18.2.49/sigem/api/login-jwt/auth/sso.php";
+
+        const response = await axios.post(ssoUrl, {}, {
+            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true // 🔹 Garante que os cookies sejam enviados e recebidos
+        });
+
+        console.log("Resposta do SSO:", response.data);
+
+        if (response.data.redirect) {
+            console.log(`Redirecionando para: ${response.data.redirect} em 30 segundos...`);
+
+            // 🔹 Aguarda 1 segundo para garantir que o cookie seja salvo no navegador
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            // 🔹 Redireciona para a página protegida após 30 segundos
+            setTimeout(() => {
+                window.location.href = `http://172.18.2.49${response.data.redirect}`;
+            }, 30000); // 30 segundos
+        } else {
+            alert("Erro ao obter URL de redirecionamento.");
+        }
+    } catch (error) {
+        console.error(error);
+        alert("Não foi possível efetuar login no SIGEM via SSO.");
+    }
+  };
+
+
   return (
     <Box
       sx={{
@@ -39,58 +81,12 @@ export default function Home() {
               fontSize: "1.2rem",
               borderRadius: "12px",
             }}
+            onClick={handleSigemClick}
           >
             Sigem
           </Button>
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Button
-            variant="contained"
-            sx={{
-              width: "100%",
-              height: "90px",
-              backgroundColor: "#D9D9D9",
-              color: "#000",
-              fontWeight: "bold",
-              fontSize: "1.2rem",
-              borderRadius: "12px",
-            }}
-          >
-            Outro Sistema
-          </Button>
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Button
-            variant="contained"
-            sx={{
-              width: "100%",
-              height: "90px",
-              backgroundColor: "#D9D9D9",
-              color: "#000",
-              fontWeight: "bold",
-              fontSize: "1.2rem",
-              borderRadius: "12px",
-            }}
-          >
-            Outro Sistema
-          </Button>
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Button
-            variant="contained"
-            sx={{
-              width: "100%",
-              height: "90px",
-              backgroundColor: "#D9D9D9",
-              color: "#000",
-              fontWeight: "bold",
-              fontSize: "1.2rem",
-              borderRadius: "12px",
-            }}
-          >
-            Outro Sistema
-          </Button>
-        </Grid>
+        {/* ...outros botões */}
       </Grid>
 
       {/* Seção: Notícias */}
@@ -130,7 +126,7 @@ export default function Home() {
             LGPD: o que você precisa saber para se adequar
           </Typography>
           <Typography variant="body2" sx={{ mt: 1 }}>
-          Casos de vazamento de dados já não são mais novidade. E para cuidar da privacidade dos inúmeros usuários pela internet afora; governo, empresas e cidadãos como um todo se uniram para criar soluções as quais evitem ou no...
+            Casos de vazamento de dados já não são mais novidade...
           </Typography>
           <Typography
             component="a"
