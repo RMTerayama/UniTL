@@ -38,11 +38,11 @@ export default function Navbar() {
   const open = Boolean(anchorEl); // Verifica se o menu está aberto
 
   const drawerWidth = 250;
-  const itemsNav1 = [{ text: "Início", icon: <HomeOutlinedIcon />, route: "/home" }, { text: "Mensagem", icon: <EmailOutlinedIcon />, route: "/chat" }];
+  const itemsNav1 = [{ text: "Início", icon: <HomeOutlinedIcon />, route: "/home" }, /* { text: "Mensagem", icon: <EmailOutlinedIcon />, route: "/chat" } */];
   const itemsNav2 = [
     { text: "Sistemas", icon: <BackupTableOutlinedIcon /> },
-    { text: "Suporte", icon: <HelpOutlineOutlinedIcon /> },
-    { text: "Ajustes", icon: <SettingsOutlinedIcon /> },
+    { text: "Suporte", icon: <HelpOutlineOutlinedIcon />, route: "suporte"},
+    { text: "Ajustes", icon: <SettingsOutlinedIcon />, route: "ajustes" },
   ];
 
   // Links para os sistemas
@@ -124,7 +124,7 @@ export default function Navbar() {
           margin: "5px 0px 5px 0px",
         }}
       >
-        
+
         <Box
           sx={{
             borderRadius: "10px",
@@ -309,19 +309,32 @@ export default function Navbar() {
                 </Menu>
               </>
             ) : (
-              <ListItemButton
-                sx={{
+              <NavLink
+                to={item.route}
+                style={({ isActive }) => ({
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  width: '100%',
                   borderRadius: '10px',
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  '&:hover': { backgroundColor: '#0d3d8a', transition: 'background-color 0.3s' },
-                }}
+                  backgroundColor: isActive ? '#0d3d8a' : 'transparent', // Destaca o item ativo
+                })}
               >
-                <ListItemIcon sx={{ minWidth: '40px', color: 'white', fontSize: 30 }}>
-                  {item.icon}
-                </ListItemIcon>
-                <ListItemText primary={item.text} sx={{ paddingLeft: '0' }} />
-              </ListItemButton>
+                <ListItemButton
+                  sx={{
+                    borderRadius: '10px',
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    '&:hover': { backgroundColor: '#0d3d8a', transition: 'background-color 0.3s' },
+                  }}
+                >
+                  <ListItemIcon sx={{ minWidth: '40px', color: 'white', fontSize: 30 }}>
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText primary={item.text} sx={{ paddingLeft: '0' }} />
+                </ListItemButton>
+              </NavLink>
+
+
             )}
           </ListItem>
         ))}
